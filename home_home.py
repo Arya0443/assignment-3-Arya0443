@@ -54,9 +54,47 @@ def print_garden_options():
     items_chosen = items_chosen.split()
     return items_chosen
 
+def indoor_options():
+    while True:
+        choice = input("\nChoose your indoor living space ideas (O for options, n for next category): ")
+        if choice == "0":
+            items_chosen = print_indoor_options()
+            if items_chosen == "":
+                print("No Items Chosen")
+            elif items_chosen == ["0"]:
+                print_indoor_options()
+            else:
+                try:
+                    for i in items_chosen:
+                        code, name, price = i, indoor_items[i][0], indoor_items[i][1]
+                        item = Home_Category(name, code, price, "indoor")
+                        home.indoor.append(item)
+                        home.total_price += price
+                        print("One",name,"is added to your home for $",price)
+                except:
+                    print("Invalid Item code.")
+        elif choice =="n":
+            break
+        else:
+            print("Enter valid choice.")
+
+def print_indoor_options():
+    global indoor_items
+    print("\nIndoor Options:")
+    for item_code in indoor_items:
+        item_name, item_price = indoor_items[item_code][0], indoor_items[item_code][1]
+        print(item_name + " (" + item_code + ") : $" + str(item_price))
+    print()
+    items_chosen = input("Choose your items (O for options): ")
+    items_chosen = items_chosen.split()
+    return items_chosen
+
 def main():
     print("Welcome to Home Ideas Center, where all orders include a new home feeling!")
     print("For your new Home space ...")
+    garden_options()
+    indoor_options()
+
 
 if __name__ == "__main__":
     main()
