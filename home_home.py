@@ -89,12 +89,54 @@ def print_indoor_options():
     items_chosen = items_chosen.split()
     return items_chosen
 
+def bathroom_options():
+    while True:
+        choice = input("\nChoose your bathroom ideas (O for options, n for exit): ")
+        if choice == "0":
+            items_chosen = print_bathroom_options()
+            if items_chosen == "":
+                print("No Items Chosen")
+            elif items_chosen == ["0"]:
+                print_bathroom_options()
+            else:
+                try:
+                    for i in items_chosen:
+                        code, name, price = i, bathroom_items[i][0], bathroom_items[i][1]
+                        item = Home_Category(name, code, price, "bathroom")
+                        home.bathroom.append(item)
+                        home.total_price += price
+                        print("One",name,"is added to your home for $",price)
+                except:
+                    print("Invalid Item code.")
+        elif choice =="n":
+            break
+        else:
+            print("Enter valid choice.")
+
+def print_bathroom_options():
+    global bathroom_items
+    print("\nBathroom Options:")
+    for item_code in bathroom_items:
+        item_name, item_price = bathroom_items[item_code][0], bathroom_items[item_code][1]
+        print(item_name + " (" + item_code + ") : $" + str(item_price))
+    print()
+    items_chosen = input("Choose your items (O for options): ")
+    items_chosen = items_chosen.split()
+    return items_chosen
+
 def main():
     print("Welcome to Home Ideas Center, where all orders include a new home feeling!")
     print("For your new Home space ...")
     garden_options()
     indoor_options()
-
+    bathroom_options()
+    for i in home.garden:
+        print(i.name, i.code, i.price)
+    for i in home.indoor:
+        print(i.name, i.code, i.price)
+    for i in home.bathroom:
+        print(i.name, i.code, i.price)
+    print("The total price is $", home.total_price)
 
 if __name__ == "__main__":
     main()
