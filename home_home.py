@@ -42,3 +42,21 @@ def garden_options():
             break
         else:
             print("Enter valid choice.")
+
+def print_garden_options():
+    global garden_items
+    print("\nGarden Options:")
+    for item_code in garden_items:
+        item_name, item_price = garden_items[item_code][0], garden_items[item_code][1]
+        print(item_name + " (" + item_code + ") : $" + str(item_price))
+    print()
+    items_chosen = input("Choose your items (O for options): ")
+    items_chosen = items_chosen.split()
+    return items_chosen
+
+def main():
+    print("Welcome to Home Ideas Center, where all orders include a new home feeling!")
+    print("For your new Home space ...")
+
+if __name__ == "__main__":
+    main()
