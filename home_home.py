@@ -18,3 +18,27 @@ home = Home([],[],[],50.0)
 garden_items = {"p": ("3 Pack garden flower", 5.0), "l": ("Hanging light wire", 10.0), "b": ("Garden bench", 35.0)}
 indoor_items = {"t": ("Small table lamp", 5.0), "f1": ("City picture frame", 7.0), "r": ("Entry rug", 35.0), "f2": ("Flower vase", 14.0)}
 bathroom_items = {"m": ("Wall mirror", 15.0), "c": ("Shower curtains", 10.0), "w": ("Wall mount", 7.0)}
+
+def garden_options():
+    while True:
+        choice = input("\nChoose one type of garden idea (O for options, n for next category): ")
+        if choice == "0":
+            items_chosen = print_garden_options()
+            if items_chosen == [""]:
+                print("No Items Chosen")
+            elif items_chosen == ["0"]:
+                print_garden_options()
+            else:
+                try:
+                    for i in items_chosen:
+                        code, name, price = i, garden_items[i][0], garden_items[i][1]
+                        item = Home_Category(name, code, price, "garden")
+                        home.garden.append(item)
+                        home.total_price += price
+                        print("One",name,"is added to your home for $",price)
+                except:
+                    print("Invalid Item code.")
+        elif choice =="n":
+            break
+        else:
+            print("Enter valid choice.")
