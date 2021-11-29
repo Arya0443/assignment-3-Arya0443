@@ -1,18 +1,54 @@
 class Home:
-    __slots__ = ["garden", "indoor", "bathroom", "total_price"]
+    __slots__ = ["__garden", "__indoor", "__bathroom", "__total_price"]
     def __init__(self, garden, indoor, bathroom, total_price):
-        self.garden = garden
-        self.indoor = indoor
-        self.bathroom = bathroom
-        self.total_price = total_price
+        self.__garden = garden
+        self.__indoor = indoor
+        self.__bathroom = bathroom
+        self.__total_price = total_price
+
+    def get_garden(self):
+        return self.__garden
+
+    def get_indoor(self):
+        return self.__indoor
+
+    def get_bathroom(self):
+        return self.__bathroom
+
+    def get_total_price(self):
+        return self.__total_price
+
+    def add_garden(self, item):
+        self.__garden.append(item)
+
+    def add_indoor(self, item):
+        self.__indoor.append(item)
+
+    def add_bathroom(self, item):
+        self.__bathroom.append(item)
+
+    def add_total_price(self, price):
+        self.__total_price += price
 
 class Home_Category:
-    __slots__ = ["name", "code", "price", "category"]
+    __slots__ = ["__name", "__code", "__price", "__category"]
     def __init__(self, name, code, price, category):
-        self.name = name
-        self.code = code
-        self.price = price
-        self.category = category
+        self.__name = name
+        self.__code = code
+        self.__price = price
+        self.__category = category
+
+    def get_name(self):
+        return self.__name
+
+    def get_code(self):
+        return self.__code
+
+    def get_price(self):
+        return self.__price
+
+    def get_category(self):
+        return self.__category
 
 home = Home([],[],[],50.0)
 garden_items = {"p": ("3 Pack garden flower", 5.0), "l": ("Hanging light wire", 10.0), "b": ("Garden bench", 35.0)}
@@ -33,8 +69,8 @@ def garden_options():
                     for i in items_chosen:
                         code, name, price = i, garden_items[i][0], garden_items[i][1]
                         item = Home_Category(name, code, price, "garden")
-                        home.garden.append(item)
-                        home.total_price += price
+                        home.add_garden(item)
+                        home.add_total_price(price)
                         print("One",name,"is added to your home for $",price)
                 except:
                     print("Invalid Item code.")
@@ -68,8 +104,8 @@ def indoor_options():
                     for i in items_chosen:
                         code, name, price = i, indoor_items[i][0], indoor_items[i][1]
                         item = Home_Category(name, code, price, "indoor")
-                        home.indoor.append(item)
-                        home.total_price += price
+                        home.add_indoor(item)
+                        home.add_total_price(price)
                         print("One",name,"is added to your home for $",price)
                 except:
                     print("Invalid Item code.")
@@ -103,8 +139,8 @@ def bathroom_options():
                     for i in items_chosen:
                         code, name, price = i, bathroom_items[i][0], bathroom_items[i][1]
                         item = Home_Category(name, code, price, "bathroom")
-                        home.bathroom.append(item)
-                        home.total_price += price
+                        home.add_bathroom(item)
+                        home.add_total_price(price)
                         print("One",name,"is added to your home for $",price)
                 except:
                     print("Invalid Item code.")
@@ -130,13 +166,13 @@ def main():
     garden_options()
     indoor_options()
     bathroom_options()
-    for i in home.garden:
+    for i in home.get_garden():
         print(i.name, i.code, i.price)
-    for i in home.indoor:
+    for i in home.get_indoor():
         print(i.name, i.code, i.price)
-    for i in home.bathroom:
+    for i in home.get_bathroom():
         print(i.name, i.code, i.price)
-    print("The total price is $", home.total_price)
+    print("The total price is $", home.get_total_price())
 
 if __name__ == "__main__":
     main()
